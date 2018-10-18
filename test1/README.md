@@ -24,6 +24,7 @@
 
 
 下面是查询语句2的优化指导
+
 ![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t2y.png)
 
 由图可以看出，该语句没有优化指导。
@@ -31,14 +32,14 @@
 
 
 下面是我自己写的查询语句:
-(```)
+```
 SELECT d.department_name，count(e.job_id)as "部门总人数"，
 avg(e.salary)as "平均工资"
 FROM hr.departments d，hr.employees e
 WHERE d.department_id = e.department_id
 partition department_name
 HAVING d.department_name in ('IT'，'Sales');
-(```)
+```
 
 下面是我的查询结果：
 ![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t3j.jpg)
