@@ -1,1 +1,3 @@
-kgmbsl;dkgsd  asdl;gkopawksertasd 
+# Oracle 实验一：分析SQL执行计划，执行SQL语句的优化指导
+## 教材中的查询语句
+### 查询1：
