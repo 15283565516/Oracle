@@ -1,4 +1,9 @@
+# 实验3：创建分区表
 
+## 创建orders表的部分语句是：
+
+
+```sql
 CREATE TABLE orders 
  (
   order_id NUMBER(10, 0) NOT NULL  primary key
@@ -64,7 +69,12 @@ CREATE TABLE orders
  )
  NOCOMPRESS NO INMEMORY
  );
-创建order_details表:
+ ```
+ 
+ 
+## 创建order_details表的语句是：
+
+```sql
 CREATE TABLE order_details
 (
 id NUMBER(10, 0) NOT NULL
@@ -125,3 +135,4 @@ PCTFREE 10
 )
 NOCOMPRESS NO INMEMORY
 );
+```
