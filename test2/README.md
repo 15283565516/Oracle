@@ -1,6 +1,6 @@
 
 第1步：以system登录到pdborcl，创建角色yd和用户ydyh，并授权和分配空间：
-
+```)sql
 $ sqlplus system/123@pdborcl
 SQL> CREATE ROLE yd;
 Role created.
@@ -13,12 +13,13 @@ User altered.
 SQL> GRANT yd TO ydyh;
 Grant succeeded.
 SQL> exit
+```
 
 
 
 
  第2步：新用户ydyh连接到pdborcl，创建表mytable和视图myview，插入数据，最后将myview的SELECT对象权限授予hr用户。
-
+```)sql
 $ sqlplus ydyh/123@pdborcl
 SQL> show user;
 USER is "YDYH"
@@ -38,11 +39,11 @@ li
 SQL> GRANT SELECT ON myview TO hr;
 Grant succeeded.
 SQL>exit
-
+```
 
 
  第3步：用户hr连接到pdborcl，查询yd授予它的视图myview
-
+```)sql
 $ sqlplus hr/123@pdborcl
 SQL> SELECT * FROM yd.myview;
 NAME
@@ -66,3 +67,4 @@ SQL>SELECT a.tablespace_name "表空间名",Total/1024/1024 "大小MB",
        (SELECT tablespace_name,Sum(bytes)total FROM dba_data_files
         group  BY tablespace_name)b
  where  a.tablespace_name = b.tablespace_name;
+ ```
