@@ -36,9 +36,11 @@ GRANT CREATE VIEW TO ydyh WITH ADMIN OPTION;
 ## 添加实验所需表和相应触发器、序列、视图
 
 ###创建两个序列
+
 ```sql
 CREATE SEQUENCE "SEQ_ORDER_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 2000 ORDER NOCYCLE NOPARTITION ;
 ```
+
 ```sql
 CREATE SEQUENCE "SEQ_ORDER_DETAILS_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 2000 ORDER NOCYCLE NOPARTITION ;
 ```
@@ -101,6 +103,7 @@ insert into ydyh.products (product_name,product_type) values ('phone3','手机')
 insert into ydyh.products (product_name,product_type) values ('paper1','耗材');
 insert into ydyh.products (product_name,product_type) values ('paper2','耗材');
 insert into ydyh.products (product_name,product_type) values ('paper3','耗材');
+
 ```
 
 ## 插入订单数据 ,插入10000条数据
