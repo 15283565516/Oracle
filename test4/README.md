@@ -31,9 +31,40 @@ GRANT CREATE VIEW TO ydyh WITH ADMIN OPTION;
 ```
 结果
 
-![系统权限授权结果](./系统权限授权.png)
+
 
 ## 添加实验所需表和相应触发器、序列、视图
+
+###创建两个序列
+```sql
+CREATE SEQUENCE "SEQ_ORDER_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 2000 ORDER NOCYCLE NOPARTITION ;
+```
+```sql
+CREATE SEQUENCE "SEQ_ORDER_DETAILS_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 2000 ORDER NOCYCLE NOPARTITION ;
+```
+
+###创建视图
+``sql
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "VIEW_ORDER_DETAILS" ("ID", "ORDER_ID", "CUSTOMER_NAME", "CUSTOMER_TEL", "ORDER_DATE", "PRODUCT_TYPE", "PRODUCT_NAME", "PRODUCT_NUM", "PRODUCT_PRICE") AS
+
+SELECT
+
+d.ID,
+
+o.ORDER_ID,
+
+o.CUSTOMER_NAME,o.CUSTOMER_TEL,o.ORDER_DATE,
+
+p.PRODUCT_TYPE,
+
+d.PRODUCT_NAME,
+
+d.PRODUCT_NUM,
+
+d.PRODUCT_PRICE
+
+FROM ORDERS o,ORDER_DETAILS d,PRODUCTS p where d.ORDER_ID=o.ORDER_ID and d.PRODUCT_NAME=p.PRODUCT_NAME;
+```
 
 
 ### 插入初始化数据
@@ -72,7 +103,7 @@ insert into ydyh.products (product_name,product_type) values ('paper2','耗材')
 insert into ydyh.products (product_name,product_type) values ('paper3','耗材');
 ```
 
-## 插入订单数据 ,插入10000条数据，插入时间 6.305秒
+## 插入订单数据 ,插入10000条数据
 ```sql
 declare
   dt date;
