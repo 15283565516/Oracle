@@ -14,6 +14,8 @@ ALTER USER ydyh QUOTA UNLIMITED ON USERS03;
 ALTER USER ydyh ACCOUNT UNLOCK;
 ```
 结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 
 ## 为用户分配权限
@@ -23,6 +25,8 @@ GRANT "RESOURCE" TO ydyh WITH ADMIN OPTION;
 ALTER USER ydyh DEFAULT ROLE "CONNECT","RESOURCE";
 ```
 结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 
 ## 系统权限分配
@@ -30,6 +34,8 @@ ALTER USER ydyh DEFAULT ROLE "CONNECT","RESOURCE";
 GRANT CREATE VIEW TO ydyh WITH ADMIN OPTION;
 ```
 结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 
 
@@ -44,6 +50,9 @@ CREATE SEQUENCE "SEQ_ORDER_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 STA
 ```sql
 CREATE SEQUENCE "SEQ_ORDER_DETAILS_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 2000 ORDER NOCYCLE NOPARTITION ;
 ```
+结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 ### 创建视图
 ``sql
@@ -67,6 +76,9 @@ d.PRODUCT_PRICE
 
 FROM ORDERS o,ORDER_DETAILS d,PRODUCTS p where d.ORDER_ID=o.ORDER_ID and d.PRODUCT_NAME=p.PRODUCT_NAME;
 ```
+结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 
 ### 插入初始化数据
@@ -105,6 +117,10 @@ insert into ydyh.products (product_name,product_type) values ('paper2','耗材')
 insert into ydyh.products (product_name,product_type) values ('paper3','耗材');
 
 ```
+
+结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 ## 插入订单数据 ,插入10000条数据
 ```sql
@@ -159,9 +175,6 @@ begin
   end loop;
 end;
 ```
-结果
-
-
 
 
 ### 查询数据
@@ -169,9 +182,9 @@ end;
 #### 查询单条数据
 ```sql
 --查询数据 id值从10012到20021
-select * from ydyh.ORDERS where  order_id=10012;
-select * from ydyh.ORDER_DETAILS where  order_id=10012;
-select * from ydyh.VIEW_ORDER_DETAILS where order_id=10012;
+select * from ydyh.ORDERS where  order_id=100;
+select * from ydyh.ORDER_DETAILS where  order_id=100;
+select * from ydyh.VIEW_ORDER_DETAILS where order_id=100;
 ```
 
 #### 递归查询员工及其下级员工
@@ -186,7 +199,9 @@ SELECT * FROM A;
 --或
 SELECT * FROM employees START WITH EMPLOYEE_ID = 11 CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID;
 ```
-查询结果
+结果
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+
 
 
 
