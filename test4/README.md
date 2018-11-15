@@ -1,10 +1,10 @@
 # 实验四
 
 ## 我的用户与角色
-```flow js
+
   用户：ydyh
   密码：123
-```
+
 
 ## 为用户分配表空间
 ```sql
@@ -14,7 +14,7 @@ ALTER USER ydyh QUOTA UNLIMITED ON USERS03;
 ALTER USER ydyh ACCOUNT UNLOCK;
 ```
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-1.png)
 
 
 
@@ -25,8 +25,7 @@ GRANT "RESOURCE" TO ydyh WITH ADMIN OPTION;
 ALTER USER ydyh DEFAULT ROLE "CONNECT","RESOURCE";
 ```
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
-
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-2.png)
 
 
 ## 系统权限分配
@@ -34,12 +33,105 @@ ALTER USER ydyh DEFAULT ROLE "CONNECT","RESOURCE";
 GRANT CREATE VIEW TO ydyh WITH ADMIN OPTION;
 ```
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-3.png)
 
 
 
 
 ## 添加实验所需表和相应触发器、序列、视图
+
+### 创建3个触发器
+```sql
+CREATE OR REPLACE EDITIONABLE TRIGGER "ORDERS_TRIG_ROW_LEVEL"
+
+BEFORE INSERT OR UPDATE OF DISCOUNT ON "ORDERS"
+
+FOR EACH ROW --行级触发器
+
+declare
+
+m number(8,2);
+
+BEGIN
+
+if inserting then
+
+:new.TRADE_RECEIVABLE := - :new.discount;
+
+else
+
+select sum(PRODUCT_NUM*PRODUCT_PRICE) into m from ORDER_DETAILS where ORDER_ID=:old.ORDER_ID;
+
+if m is null then
+
+m:=0;
+
+end if;
+
+:new.TRADE_RECEIVABLE := m - :new.discount;
+
+end if;
+
+END;
+
+ALTER TRIGGER "ORDERS_TRIG_ROW_LEVEL" DISABLE;
+
+
+
+
+
+-- 触发器 ORDER_DETAILS_ROW_TRIG
+
+
+
+CREATE OR REPLACE EDITIONABLE TRIGGER "ORDER_DETAILS_ROW_TRIG"
+
+AFTER DELETE OR INSERT OR UPDATE ON ORDER_DETAILS
+
+FOR EACH ROW
+
+BEGIN
+
+--DBMS_OUTPUT.PUT_LINE(:NEW.ORDER_ID);
+
+IF :NEW.ORDER_ID IS NOT NULL THEN
+
+MERGE INTO ORDER_ID_TEMP A
+
+USING (SELECT 1 FROM DUAL) B
+
+ON (A.ORDER_ID=:NEW.ORDER_ID)
+
+WHEN NOT MATCHED THEN
+
+INSERT (ORDER_ID) VALUES(:NEW.ORDER_ID);
+
+END IF;
+
+IF :OLD.ORDER_ID IS NOT NULL THEN
+
+MERGE INTO ORDER_ID_TEMP A
+
+USING (SELECT 1 FROM DUAL) B
+
+ON (A.ORDER_ID=:OLD.ORDER_ID)
+
+WHEN NOT MATCHED THEN
+
+INSERT (ORDER_ID) VALUES(:OLD.ORDER_ID);
+
+END IF;
+
+END;
+
+ALTER TRIGGER "ORDER_DETAILS_ROW_TRIG" DISABLE;
+
+```
+结果
+
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-8.png)
+
+
 
 ### 创建两个序列
 
@@ -51,7 +143,7 @@ CREATE SEQUENCE "SEQ_ORDER_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 STA
 CREATE SEQUENCE "SEQ_ORDER_DETAILS_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 2000 ORDER NOCYCLE NOPARTITION ;
 ```
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-4.png)
 
 
 ### 创建视图
@@ -77,7 +169,7 @@ d.PRODUCT_PRICE
 FROM ORDERS o,ORDER_DETAILS d,PRODUCTS p where d.ORDER_ID=o.ORDER_ID and d.PRODUCT_NAME=p.PRODUCT_NAME;
 ```
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-5.png)
 
 
 
@@ -119,7 +211,7 @@ insert into ydyh.products (product_name,product_type) values ('paper3','耗材')
 ```
 
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-6.png)
 
 
 ## 插入订单数据 ,插入10000条数据
@@ -200,7 +292,7 @@ SELECT * FROM A;
 SELECT * FROM employees START WITH EMPLOYEE_ID = 11 CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID;
 ```
 结果
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test1/t1j.jpg)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-7.png)
 
 
 
