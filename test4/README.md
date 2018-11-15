@@ -147,7 +147,7 @@ CREATE SEQUENCE "SEQ_ORDER_DETAILS_ID" MINVALUE 1 MAXVALUE 9999999999 INCREMENT 
 
 
 ### 创建视图
-``sql
+```sql
 CREATE OR REPLACE FORCE EDITIONABLE VIEW "VIEW_ORDER_DETAILS" ("ID", "ORDER_ID", "CUSTOMER_NAME", "CUSTOMER_TEL", "ORDER_DATE", "PRODUCT_TYPE", "PRODUCT_NAME", "PRODUCT_NUM", "PRODUCT_PRICE") AS
 
 SELECT
@@ -168,7 +168,9 @@ d.PRODUCT_PRICE
 
 FROM ORDERS o,ORDER_DETAILS d,PRODUCTS p where d.ORDER_ID=o.ORDER_ID and d.PRODUCT_NAME=p.PRODUCT_NAME;
 ```
+
 结果
+
 ![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4-5.PNG)
 
 
@@ -207,7 +209,6 @@ insert into ydyh.products (product_name,product_type) values ('phone3','手机')
 insert into ydyh.products (product_name,product_type) values ('paper1','耗材');
 insert into ydyh.products (product_name,product_type) values ('paper2','耗材');
 insert into ydyh.products (product_name,product_type) values ('paper3','耗材');
-
 ```
 
 结果
