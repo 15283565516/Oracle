@@ -8,7 +8,7 @@
     /
 ```
 ## 结果：
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/1.PNG)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test5/1.PNG)
 ## 2、在MyPack中创建一个函数SaleAmount ，查询部门表，统计每个部门的销售总金额，每个部门的销售额是由该部门的员工(ORDERS.EMPLOYEE_ID)完成的销售额之和。函数SaleAmount要求输入的参数是部门号，输出部门的销售金额。
 ```
     create or replace PACKAGE BODY MyPack IS
@@ -43,18 +43,18 @@
     /
 ```
 ## 结果：
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/2.PNG)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test5/2.PNG)
 ## 4、函数Get_SaleAmount()测试：
 ```
    select count(*) from orders;
 ```
 ## 结果：
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/3.PNG)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test5/3.PNG)
 ```
   select MyPack.Get_SaleAmount(11) AS 部门11应收金额,MyPack.Get_SaleAmount(12) AS 部门12应收金额 from dual;
 ```
 ## 结果：
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/4.PNG)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test5/4.PNG)
 ## 5、过程Get_Employees()测试：
 ```
 set serveroutput on
@@ -69,5 +69,5 @@ END;
 /
 ```
 ## 结果：
-![blockchain](https://github.com/15283565516/Oracle/blob/master/test4/5.PNG)
+![blockchain](https://github.com/15283565516/Oracle/blob/master/test5/5.PNG)
 
