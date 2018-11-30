@@ -1,4 +1,5 @@
 # 实验五
+### 用户：ydyh  密码：123
 ## 1、创建一个包(Package)，包名是MyPack。
 ```
     create or replace PACKAGE MyPack IS
